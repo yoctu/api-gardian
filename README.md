@@ -1,6 +1,6 @@
-# API Gardian
+# API guardian
 
-[![Build Status](https://travis-ci.org/yoctu/api-gardian.svg?branch=master)](https://travis-ci.org/yoctu/api-gardian)
+[![Build Status](https://travis-ci.org/yoctu/api-guardian.svg?branch=master)](https://travis-ci.org/yoctu/api-guardian)
 
 Protect your pages with a token!
 
@@ -13,14 +13,14 @@ You will need a project running Objective-PHP to use this package.
 The package should be easy to install. You just need to add this repository to your composer.json
 
 ```
-composer require yoctu/api-gardian
+composer require yoctu/api-guardian
 ```
 
 And add the package to your Application.php with filter(s) if needed.
 
 ```
 $this->getStep('auth')
-    ->plug(ApiGardian::class, new UrlFilter('/api/*'))->as('api-gardian')
+    ->plug(Apiguardian::class, new UrlFilter('/api/*'))->as('api-guardian')
 ;
 ```
 

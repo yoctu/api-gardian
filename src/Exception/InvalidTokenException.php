@@ -6,7 +6,7 @@
  * Time: 14:23
  */
 
-namespace Yoctu\ApiGardian\Exception;
+namespace Yoctu\Apiguardian\Exception;
 
 class InvalidTokenException extends \LogicException
 {

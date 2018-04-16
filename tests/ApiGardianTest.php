@@ -10,14 +10,14 @@ use PHPUnit\Framework\TestCase;
  * Time: 17:08
  */
 
-final class ApiGardianTest extends TestCase
+final class ApiguardianTest extends TestCase
 {
-    /** @var \Yoctu\ApiGardian\ApiGardian */
+    /** @var \Yoctu\Apiguardian\Apiguardian */
     protected $instance;
 
     protected function setUp()
     {
-        $this->instance = new \Yoctu\ApiGardian\ApiGardian();
+        $this->instance = new \Yoctu\Apiguardian\Apiguardian();
     }
 
     public function testPassWhenNoApiKeyWhereSetted()
@@ -47,7 +47,7 @@ final class ApiGardianTest extends TestCase
         $app->expects($this->once())->method('getConfig')->willReturn($config);
         $app->expects($this->once())->method('getRequest')->willReturn($request);
 
-        $this->expectException(\Yoctu\ApiGardian\Exception\NoTokenProvidedException::class);
+        $this->expectException(\Yoctu\Apiguardian\Exception\NoTokenProvidedException::class);
         $this->instance->__invoke($app);
     }
 
@@ -66,7 +66,7 @@ final class ApiGardianTest extends TestCase
         $app->expects($this->once())->method('getConfig')->willReturn($config);
         $app->expects($this->once())->method('getRequest')->willReturn($request);
 
-        $this->expectException(\Yoctu\ApiGardian\Exception\InvalidTokenException::class);
+        $this->expectException(\Yoctu\Apiguardian\Exception\InvalidTokenException::class);
         $this->instance->__invoke($app);
     }
 
