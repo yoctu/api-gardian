@@ -1,0 +1,29 @@
+{
+    "name": "yoctu/api-gardian",
+    "license": "GPL-3.0",
+    "description": "Protect your API with a token (objective-php)",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Jérôme Schaeffer",
+            "email": "jer.schaeffer@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "objective-php/application": "1.*"
+    },
+    "config": {
+        "platform": {
+            "php": "7.0.25"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Yoctu\\ApiGardian\\": "src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5"
+    }
+}
