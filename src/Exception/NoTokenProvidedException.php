@@ -6,7 +6,7 @@
  * Time: 14:23
  */
 
-namespace Yoctu\Apiguardian\Exception;
+namespace Yoctu\ApiGuardian\Exception;
 
 class NoTokenProvidedException extends \LogicException
 {

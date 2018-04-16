@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Yoctu\\Apiguardian\\": "src/"
+            "Yoctu\\ApiGuardian\\": "src/"
         }
     },
     "require-dev": {

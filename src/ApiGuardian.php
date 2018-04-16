@@ -1,24 +1,24 @@
 <?php
 
-namespace Yoctu\Apiguardian;
+namespace Yoctu\ApiGuardian;
 
 use ObjectivePHP\Application\ApplicationInterface;
 use ObjectivePHP\Application\Config\Param;
-use Yoctu\Apiguardian\Exception\InvalidTokenException;
-use Yoctu\Apiguardian\Exception\NoTokenProvidedException;
+use Yoctu\ApiGuardian\Exception\InvalidTokenException;
+use Yoctu\ApiGuardian\Exception\NoTokenProvidedException;
 use Zend\Diactoros\Request;
 
 /**
  * Class Apiguardian
- * @package Yoctu\Apiguardian
+ * @package Yoctu\ApiGuardian
  */
-class Apiguardian
+class ApiGuardian
 {
     /**
      * @param ApplicationInterface $app
      *
-     * @throws \Yoctu\Apiguardian\Exception\InvalidTokenException
-     * @throws  \Yoctu\Apiguardian\Exception\NoTokenProvidedException
+     * @throws \Yoctu\ApiGuardian\Exception\InvalidTokenException
+     * @throws  \Yoctu\ApiGuardian\Exception\NoTokenProvidedException
      */
     public function __invoke(ApplicationInterface $app)
     {
