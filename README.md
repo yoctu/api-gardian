@@ -1,5 +1,7 @@
 # API Gardian
 
+[![Build Status](https://travis-ci.org/yoctu/api-gardian.svg?branch=master)](https://travis-ci.org/yoctu/api-gardian)
+
 Protect your pages with a token!
 
 ### Prerequisites
