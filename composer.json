@@ -1,5 +1,5 @@
 {
-    "name": "yoctu/api-gardian",
+    "name": "yoctu/api-guardian",
     "license": "GPL-3.0",
     "description": "Protect your API with a token (objective-php)",
     "type": "library",
