@@ -14,6 +14,27 @@ use Zend\Diactoros\Request;
  */
 class ApiGuardian
 {
+    /** @var array */
+    protected $optionalKeys;
+
+    /**
+     * @param array $optionalKeys
+     */
+    public function setOptionalKeys(array $optionalKeys = [])
+    {
+        $this->optionalKeys = $optionalKeys;
+    }
+
+    /**
+     * If for some reason you want to add more keys to the list of authorized api keys you can do it here.
+     *
+     * @param array $optionalKeys
+     */
+    public function __construct(array $optionalKeys = [])
+    {
+        $this->optionalKeys = $optionalKeys;
+    }
+
     /**
      * @param ApplicationInterface $app
      *
@@ -23,6 +44,7 @@ class ApiGuardian
     public function __invoke(ApplicationInterface $app)
     {
         $apiKeys = array_filter($app->getConfig()->subset(Param::class)->get('api-keys'));
+        $apiKeys = array_merge($apiKeys, $this->optionalKeys);
 
         // If no api keys are provided, we pass the verification
         if (empty($apiKeys)) {

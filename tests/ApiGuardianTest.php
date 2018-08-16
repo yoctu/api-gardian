@@ -87,4 +87,23 @@ final class ApiGuardianTest extends TestCase
 
         $this->instance->__invoke($app);
     }
+    public function testPassWithOptionalKeys()
+    {
+        $app = $this->getMockBuilder(\ObjectivePHP\Application\ApplicationInterface::class)->getMock();
+        $request = $this->getMockBuilder(\ObjectivePHP\Message\Request\HttpRequest::class)->getMock();
+        $config = $this->getMockBuilder(\ObjectivePHP\Config\Config::class)->getMock();
+
+        $request->expects($this->once())->method('hasHeader')->with('Authorization')->willReturn(true);
+        $request->expects($this->once())->method('getHeaderLine')->with('Authorization')->willReturn('optionalkey');
+
+        $config->expects($this->once())->method('subset')->with(Param::class)->willReturnSelf();
+        $config->expects($this->once())->method('get')->with('api-keys')->willReturn([]);
+
+        $this->instance->setOptionalKeys(['optionalkey']);
+
+        $app->expects($this->once())->method('getConfig')->willReturn($config);
+        $app->expects($this->once())->method('getRequest')->willReturn($request);
+
+        $this->instance->__invoke($app);
+    }
 }
