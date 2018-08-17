@@ -15,22 +15,14 @@ use Zend\Diactoros\Request;
 class ApiGuardian
 {
     /** @var array */
-    protected $optionalKeys;
-
-    /**
-     * @param array $optionalKeys
-     */
-    public function setOptionalKeys(array $optionalKeys = [])
-    {
-        $this->optionalKeys = $optionalKeys;
-    }
+    protected $optionalKeys = [];
 
     /**
      * If for some reason you want to add more keys to the list of authorized api keys you can do it here.
      *
      * @param array $optionalKeys
      */
-    public function __construct(array $optionalKeys = [])
+    public function setOptionalKeys(array $optionalKeys)
     {
         $this->optionalKeys = $optionalKeys;
     }
@@ -40,11 +32,17 @@ class ApiGuardian
      *
      * @throws \Yoctu\ApiGuardian\Exception\InvalidTokenException
      * @throws  \Yoctu\ApiGuardian\Exception\NoTokenProvidedException
+     * @throws \ObjectivePHP\ServicesFactory\Exception\Exception
      */
     public function __invoke(ApplicationInterface $app)
     {
         $apiKeys = array_filter($app->getConfig()->subset(Param::class)->get('api-keys'));
         $apiKeys = array_merge($apiKeys, $this->optionalKeys);
+
+        // If your app have some form of user provider you can use an user api token to the list
+        if ($app->getServicesFactory()->has('user')) {
+            $apiKeys = array_merge($apiKeys, [$app->getServicesFactory()->get('user')->getApiToken()]);
+        }
 
         // If no api keys are provided, we pass the verification
         if (empty($apiKeys)) {

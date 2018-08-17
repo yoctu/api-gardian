@@ -87,6 +87,7 @@ final class ApiGuardianTest extends TestCase
 
         $this->instance->__invoke($app);
     }
+
     public function testPassWithOptionalKeys()
     {
         $app = $this->getMockBuilder(\ObjectivePHP\Application\ApplicationInterface::class)->getMock();
@@ -101,6 +102,30 @@ final class ApiGuardianTest extends TestCase
 
         $this->instance->setOptionalKeys(['optionalkey']);
 
+        $app->expects($this->once())->method('getConfig')->willReturn($config);
+        $app->expects($this->once())->method('getRequest')->willReturn($request);
+
+        $this->instance->__invoke($app);
+    }
+
+    public function testPassWithUserProvidedKey()
+    {
+        $app = $this->getMockBuilder(\ObjectivePHP\Application\ApplicationInterface::class)->getMock();
+        $request = $this->getMockBuilder(\ObjectivePHP\Message\Request\HttpRequest::class)->getMock();
+        $config = $this->getMockBuilder(\ObjectivePHP\Config\Config::class)->getMock();
+        $serviceProvider = $this->getMockBuilder(\ObjectivePHP\ServicesFactory\ServicesFactory::class)->getMock();
+        $user = new class{ public function getApiToken(): string { return 'usertoken'; } };
+
+        $serviceProvider->expects($this->once())->method('get')->with('user')->willReturn($user);
+        $serviceProvider->expects($this->once())->method('has')->with('user')->willReturn(true);
+
+        $request->expects($this->once())->method('hasHeader')->with('Authorization')->willReturn(true);
+        $request->expects($this->once())->method('getHeaderLine')->with('Authorization')->willReturn('usertoken');
+
+        $config->expects($this->once())->method('subset')->with(Param::class)->willReturnSelf();
+        $config->expects($this->once())->method('get')->with('api-keys')->willReturn([]);
+
+        $app->expects($this->exactly(2))->method('getServicesFactory')->willReturn($serviceProvider);
         $app->expects($this->once())->method('getConfig')->willReturn($config);
         $app->expects($this->once())->method('getRequest')->willReturn($request);
 
