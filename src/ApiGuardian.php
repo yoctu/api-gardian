@@ -36,13 +36,14 @@ class ApiGuardian
      */
     public function __invoke(ApplicationInterface $app)
     {
-        $apiKeys = array_filter($app->getConfig()->subset(Param::class)->get('api-keys'));
-        $apiKeys = array_merge($apiKeys, $this->optionalKeys);
+        $apiKeys = array_merge($app->getConfig()->subset(Param::class)->get('api-keys'), $this->optionalKeys);
 
         // If your app have some form of user provider you can use an user api token to the list
         if ($app->getServicesFactory()->has('user')) {
             $apiKeys = array_merge($apiKeys, [$app->getServicesFactory()->get('user')->getApiToken()]);
         }
+
+        $apiKeys = array_filter($apiKeys);
 
         // If no api keys are provided, we pass the verification
         if (empty($apiKeys)) {
