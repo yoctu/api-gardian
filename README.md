@@ -30,7 +30,7 @@ you can setup the one or more token to be used in the configuration.
 
 ```
 return [
-    new Param('api-key', ['api_key_one', 'api_key_two'])
+    new Param('api-keys', ['api_key_one', 'api_key_two'])
 ];
 ```
 
