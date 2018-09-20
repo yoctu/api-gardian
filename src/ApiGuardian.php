@@ -59,12 +59,12 @@ class ApiGuardian
             $httpHeader = apache_request_headers();
         }
 
-        if (!isset($httpHeader['authorization']) && !$request->hasHeader('Authorization')) {
+        if (!isset($httpHeader['Authorization']) && !$request->hasHeader('Authorization')) {
             throw new NoTokenProvidedException();
         }
 
         $authHeader = $request->getHeaderLine('Authorization');
-        $authHeader = empty($authHeader) ? $httpHeader['authorization'] : $authHeader;
+        $authHeader = empty($authHeader) ? $httpHeader['Authorization'] : $authHeader;
 
         if (!\in_array($authHeader, $apiKeys, true)) {
             throw new InvalidTokenException();
