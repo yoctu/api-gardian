@@ -53,11 +53,20 @@ class ApiGuardian
         /** @var Request $request */
         $request = $app->getRequest();
 
-        if (!$request->hasHeader('Authorization')) {
+        // Fix for issue #1
+        $apacheHeaders = [];
+        if (\function_exists('apache_request_headers')){
+            $apacheHeaders = apache_request_headers();
+        }
+
+        if (!isset($apacheHeaders['authorization']) && !$request->hasHeader('Authorization')) {
             throw new NoTokenProvidedException();
         }
 
-        if (!\in_array($request->getHeaderLine('Authorization'), $apiKeys, true)) {
+        $authHeader = $request->getHeaderLine('Authorization');
+        $authHeader = empty($authHeader) ? $apacheHeaders['authorization'] : $authHeader;
+
+        if (!\in_array($authHeader, $apiKeys, true)) {
             throw new InvalidTokenException();
         }
     }
