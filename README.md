@@ -8,6 +8,9 @@ Protect your pages with a token!
 
 You will need a project running Objective-PHP to use this package.
 
+If you want to use the user token feauture, you'll need a user with the attribute `apiToken`
+With yoctu/connect you'll need at least connect-common v2.2.3
+
 ### Installing
 
 The package should be easy to install. You just need to add this repository to your composer.json
@@ -30,7 +33,7 @@ you can setup the one or more token to be used in the configuration.
 
 ```
 return [
-    new Param('api-key', ['api_key_one', 'api_key_two'])
+    new Param('api-keys', ['api_key_one', 'api_key_two'])
 ];
 ```
 
