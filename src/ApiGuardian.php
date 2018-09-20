@@ -55,7 +55,7 @@ class ApiGuardian
 
         // Fix for issue #1
         $apacheHeaders = [];
-        if (\function_exists('apache_request_headers')){
+        if (\function_exists('apache_request_headers')) {
             $apacheHeaders = apache_request_headers();
         }
 
